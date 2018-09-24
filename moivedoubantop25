@@ -1,0 +1,17 @@
+# coding:utf-8 
+import requests 
+from lxml import html 
+
+url = 'https://movie.douban.com/top250' 
+con = requests.get(url).content 
+hfs = html.fromstring(con) 
+
+for i in hfs.xpath('//div[@class="info"]'): 
+    title = i.xpath('div[@class="hd"]/a/span[@class="title"]/text()')[0] 
+    info = i.xpath('div[@class="bd"]/p[1]/text()') 
+    date = info[1].replace(" ", "").replace("\n", "").split("/")[0] 
+    country = info[1].replace(" ", "").replace("\n", "").split("/")[1] 
+    geners = info[1].replace(" ", "").replace("\n", "").split("/")[2] 
+    rate = i.xpath('//span[@class="rating_num"]/text()')[0] 
+
+    print(title, rate, date, country, geners)
