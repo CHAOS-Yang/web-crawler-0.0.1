@@ -1,0 +1,13 @@
+#coding=utf-8
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://y.qq.com'
+response = requests.get(url)
+#print(response.text)
+all_a = BeautifulSoup(response.text, 'lxml').find_all('a',class_= 'album_name songlist__link mod_cover')
+for a in all_a:
+    print(a['title'])
+    #print(a)
+#print(all_a)
+#print(BeautifulSoup(response.text, 'lxml'))
